@@ -1,4 +1,5 @@
 BOARD = 'board'
+EMPTY = 'empty'
 
 class TicTacToeBoard:
 

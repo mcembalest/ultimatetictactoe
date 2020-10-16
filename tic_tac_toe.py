@@ -1,5 +1,9 @@
 import tkinter as tk
 import random
+
+from ttt_board import TicTacToeBoard
+
+#formatting constants
 window_size = 600
 shift = 50
 duration = 1000
@@ -10,64 +14,13 @@ piece_color = 'red'
 board_outline_color = '#0de50d'
 bg_tag = 'background'
 pad = 10
+
+#game constants
 X = 'X'
 O = 'O'
 EMPTY = ''
 EMPTY_WINNER = ''
 BOARD = 'board'
-
-
-class TicTacToeBoard:
-    
-    def __init__(self,data,row,col):
-        self.row = row
-        self.col = col
-        self.fill_grid(data)
-        self.winner = EMPTY_WINNER
-        
-    def fill_grid(self,data):
-        if data == BOARD:
-            self.grid = [ [TicTacToeBoard(EMPTY,i,j) for j in range(3)] for i in range(3)]
-        else:
-            self.grid = [ [data for j in range(3)] for i in range(3)]
-            self.x_range, self.y_range = range(self.col*board_size,(self.col+1)*board_size), range(self.row*board_size,(self.row+1)*board_size)
-        
-    def place_piece(self,piece,row,col):
-        self.grid[row][col] = piece
-    
-    def row_win(self,n):
-        if self.grid[n][0]==self.grid[n][1] and self.grid[n][1]==self.grid[n][2] and self.grid[n][1] != EMPTY:
-            self.winner = self.grid[n][1]
-            return True
-        return False
-    
-    def col_win(self,n):
-        if self.grid[0][n]==self.grid[1][n] and self.grid[1][n]==self.grid[2][n] and self.grid[1][n] != EMPTY:
-            self.winner = self.grid[1][n]
-            return True
-        return False
-    
-    def diag_win(self):
-        if ((self.grid[0][0]==self.grid[1][1] and self.grid[1][1]==self.grid[2][2]) or (self.grid[2][0]==self.grid[1][1] and self.grid[1][1]==self.grid[0][2])) and self.grid[1][1] != EMPTY:
-            self.winner = self.grid[1][1]
-            return True
-        return False
-    
-    def check_win(self):
-        if self.winner is EMPTY_WINNER:
-            if self.diag_win():
-                return True
-            for i in range(3):
-                if self.row_win(i) or self.col_win(i):
-                    return True
-        return False
-        
-    def __eq__(self,other_board):
-        return self.winner == other_board.winner and (self.winner != EMPTY_WINNER)
-    
-    def squares(self):
-        return [self.grid[i][j] for i in range(3) for j in range(3)]
-    
     
 class GameState:
     
@@ -89,43 +42,12 @@ class Game(tk.Tk):
         
     def setup_canvas(self):
         tk.Tk.__init__(self)
-        self.setup_timer()
-        self.setup_names()
         self.canvas = tk.Canvas(height=window_size,width=window_size)
         self.canvas.pack()
         self.draw_everything()
-
-    def setup_names(self):
-        self.name_label = tk.Label(font=("Helvetica", 36))
-        self.name_label['text'] = self.piece + "'s move"
-        self.name_label.place(x=1100,y=5)
-        
-    def setup_timer(self):
-        self.time_label = tk.Label(font=("Helvetica", 36))
-        self.time_label.place(x=5,y=5)
-        self.reset_counter = False
-        self.paused = True
-        self.count = 10
-        self.countdown()
-        
-    def countdown(self):
-        if self.count >= 0 and not self.reset_counter:
-            self.time_label['text'] = str(round(self.count,2))
-            if not self.paused:
-                self.count -= 1
-                self.after(duration,self.countdown)
-        else:
-            if not self.reset_counter:
-                self.make_random_move()
-            self.reset_counter = False
-            self.count = 10
-            self.time_label['text'] = str(round(self.count,2))
-            if not self.paused:
-                self.count -= 1
-                self.after(duration,self.countdown) 
         
     def setup_game(self):
-        self.mega_board = TicTacToeBoard(BOARD,None,None,)
+        self.mega_board = TicTacToeBoard(BOARD,None,None)
         self.piece = X
         self.playable_boards = self.mega_board.squares()
         self.winners = ['' for i in range(9)]
@@ -270,31 +192,9 @@ class Game(tk.Tk):
         top_left_x , top_left_y = b.col*board_size, b.row*board_size
         bottom_right_x, bottom_right_y = (b.col+1)*board_size, (b.row+1)*board_size
         self.canvas.create_rectangle(top_left_x+pad, top_left_y+pad, bottom_right_x-pad, bottom_right_y-pad,width = 5,outline=board_outline_color)
-        
-class GetNames(tk.Tk):
-    
-    def __init__(self):
-        tk.Tk.__init__(self)
-        self.e1 = tk.Entry()
-        self.e1.pack()
-        l1 = tk.Label(text = "X team")
-        l1.pack()
-        l2 = tk.Label(text = "O team")
-        l2.pack()
-        self.e2 = tk.Entry()
-        self.e2.pack()
-        b = tk.Button(text="Start game", width=50, command=self.save_names)
-        b.pack()
-        
-    def save_names(self):
-        self.x_team = self.e1.get()
-        self.o_team = self.e2.get()
-        self.destroy()
+
         
 if __name__ == "__main__":
-    # g = GetNames()
-    # g.mainloop()
-    # game = Game(g.x_team,g.o_team)
     game = Game()
     game.mainloop()
 
