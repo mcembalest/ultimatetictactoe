@@ -1,5 +1,21 @@
+#formatting constants
+window_size = 600
+shift = 50
+duration = 1000
+board_size = int(window_size/3)
+sq_size = int(board_size/3)
+background_color = 'blue'
+piece_color = 'red'
+board_outline_color = '#0de50d'
+bg_tag = 'background'
+pad = 10
+
+#game constants
+X = 'X'
+O = 'O'
+EMPTY = ''
+EMPTY_WINNER = ''
 BOARD = 'board'
-EMPTY = 'empty'
 
 class TicTacToeBoard:
 

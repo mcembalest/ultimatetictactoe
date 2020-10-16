@@ -37,7 +37,6 @@ class Game(tk.Tk):
         self.setup_game()
         self.setup_canvas()
         self.setup_click()
-        self.setup_pause_button()
         self.setup_undo_button()
         
     def setup_canvas(self):
@@ -93,21 +92,6 @@ class Game(tk.Tk):
         self.playable_boards = self.state.playable
         self.draw_everything()
         self.change_player()
-        
-    def setup_pause_button(self):
-        frame = tk.Frame()
-        frame.pack()
-        self.pause_button = tk.Button(frame,text = "Start Timer", font=("Helvetica", 16), command = self.pause)
-        self.pause_button.pack()
-        
-    def pause(self):
-        if not self.paused:
-            self.paused = True
-            self.pause_button['text'] = "Resume Timer"
-        else:
-            self.paused = False
-            self.pause_button['text'] = "Pause Timer"
-            self.after(100,self.countdown)
         
     def update_board(self,board_config,winners):
         board_count = 0
@@ -177,7 +161,6 @@ class Game(tk.Tk):
             self.piece = O
         else:
             self.piece = X
-        self.name_label['text'] = self.piece + "'s move"
                 
     def update_playable_boards(self,inner_row,inner_col):
         if self.mega_board.grid[inner_row][inner_col].winner == EMPTY_WINNER:
