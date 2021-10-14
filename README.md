@@ -1,6 +1,6 @@
 # Ultimate Tic Tac Toe
 
-To play, make sure `uttt.py` (main file), `uttt_window.py` (graphics) and `uttt_game.py` (game logic) are in the same folder. Then in the terminal, navigate to that folder and run
+To play, make sure `uttt.py` (main file), `uttt_window.py` (handles graphics) and `uttt_game.py` (handles game logic) are in the same folder. Then in the terminal, navigate to that folder and run
 
 `python uttt.py`
 
