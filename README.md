@@ -4,6 +4,9 @@ To play, make sure `uttt.py` (main file & game logic) and `uttt_board.py` (graph
 
 `python uttt.py`
 
+which will launch the game in a TKinter window.
+
+
 I originally read about this game from Ben Orlin's writing:
 
 https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/
