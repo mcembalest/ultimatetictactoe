@@ -31,7 +31,7 @@ class GameState:
         self.winners = winners
     
     
-class Game(tk.Tk):
+class GameWindow(tk.Tk):
     
     def __init__(self):
         self.setup_game()
