@@ -12,4 +12,4 @@ A good explanation of the rules can be found here:
 
 https://ultimate-t3.herokuapp.com/rules
 
-![alt text](https://github.com/mcembalest/tessellate/blob/main/ttt_readme1.png?raw=true)
+![alt text](https://github.com/mcembalest/ultimatetictactoe/blob/main/ttt_readme1.png?raw=true)
